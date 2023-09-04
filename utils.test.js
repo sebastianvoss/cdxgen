@@ -1115,7 +1115,7 @@ test("parse github actions workflow data", async () => {
   expect(dep_list[0]).toEqual({
     group: "actions",
     name: "checkout",
-    version: "v3"
+    version: "v4"
   });
   dep_list = await parseGitHubWorkflowData(
     readFileSync("./.github/workflows/repotests.yml", { encoding: "utf-8" })
@@ -1124,7 +1124,7 @@ test("parse github actions workflow data", async () => {
   expect(dep_list[0]).toEqual({
     group: "actions",
     name: "checkout",
-    version: "v3"
+    version: "v4"
   });
   dep_list = await parseGitHubWorkflowData(
     readFileSync("./.github/workflows/app-release.yml", {
