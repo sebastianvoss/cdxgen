@@ -1316,6 +1316,7 @@ export const createJavaBom = async (path, options) => {
               !Object.keys(parentComponent).length
             ) {
               parentComponent = bomJsonObj.metadata.component;
+              options.parentComponent = parentComponent;
               pkgList = [];
             }
             if (bomJsonObj.components) {
@@ -3412,7 +3413,7 @@ export const createContainerSpecLikeBom = async (path, options) => {
   const ociSpecs = [];
   let components = [];
   let componentsXmls = [];
-  const parentComponent = {};
+  let parentComponent = {};
   let dependencies = [];
   const doneimages = [];
   const doneservices = [];
@@ -3651,6 +3652,10 @@ export const createContainerSpecLikeBom = async (path, options) => {
       if (mbomData.componentsXmls && mbomData.componentsXmls.length) {
         componentsXmls = componentsXmls.concat(mbomData.componentsXmls);
       }
+      // We need to retain the parentComponent. See #527
+      // Parent component returned by multi X search is usually good
+      parentComponent = mbomData.parentComponent;
+      options.parentComponent = parentComponent;
       if (mbomData.bomJson) {
         if (mbomData.bomJson.dependencies) {
           dependencies = mergeDependencies(
